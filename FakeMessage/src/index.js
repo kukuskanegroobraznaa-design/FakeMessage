@@ -1,13 +1,13 @@
-import { findByProps } from "@vendetta/metro";
-import { FluxDispatcher } from "@vendetta/metro/common";
-import { showToast } from "@vendetta/ui/toasts";
-import { after } from "@vendetta/patcher";
+const findByProps = vendetta.metro.findByProps;
+const after = vendetta.patcher.after;
+const FluxDispatcher = vendetta.metro.common.FluxDispatcher;
+const showToast = vendetta.ui.toasts.showToast;
 
 const UserStore = findByProps("getCurrentUser");
 const SelectedChannelStore = findByProps("getChannelId");
 const ActionSheet = findByProps("openLazy", "hideActionSheet");
 
-let unpatch: any;
+let unpatch;
 
 export default {
     onLoad() {
@@ -41,7 +41,7 @@ export default {
                         type: "MESSAGE_CREATE",
                         channelId,
                         message: {
-                            id: (BigInt(Date.now() - 1420070400000) << 22n).toString(),
+                            id: String(BigInt(Date.now() - 1420070400000) << 22n),
                             channel_id: channelId,
                             content,
                             author: {
@@ -65,7 +65,7 @@ export default {
                             type: 0,
                             flags: 0,
                             components: [],
-                            nonce: (BigInt(Date.now() - 1420070400000) << 22n).toString(),
+                            nonce: String(BigInt(Date.now() - 1420070400000) << 22n),
                         },
                     });
 
